@@ -1,0 +1,27 @@
+<!--[name]="player"  ist name hier @Input Eigenschaft deswegen kann man in Parent anwenden.-->
+
+<app-player *ngFor=" let player of game.players; let i = index" [ngStyle]="{'top.px':100+( i * 90)}"
+  [playerActive]=" i === game.currentPlayer " [name]="player" class="player-position"></app-player>
+
+<div class="fields">
+  <div class="card-stack">
+    <!-- Stapel der Cards-->
+    <img [ngStyle]="{'right.px':i*5}" *ngFor="let c of[0,1,2,3]; let i=index" src="./assets/img/cards/card_cover.png">
+
+    <img (click)="takeCard()" class="top-card" [ngStyle]="{'right.px':25}" src="./assets/img/cards/card_cover.png">
+
+    <!-- Es ist Gespielte Karte animation -->
+    <img *ngFor="let card of game.playedCards" class="played-card" src="./assets/img/cards/{{ card }}.png">
+
+    <!-- Ziehende Karte animation   -->
+    <img (click)="takeCard()" *ngIf="pickCardAnimation" class="pick-card" style="right: 25px;"
+      src="./assets/img/cards/{{ currentCard }}.png">
+  </div>
+</div>
+
+
+<app-gameinfo [card]="currentCard" class="pin-bottom"> </app-gameinfo>
+
+<button mat-fab (click)="openDialog()" class="add-btn">
+  <mat-icon>add</mat-icon>
+</button>
